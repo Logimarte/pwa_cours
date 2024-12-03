@@ -1,23 +1,24 @@
-const installBtn = document.querySelector("#installbutton")
+const installBtn = document.querySelector("#installButton")
 let deferredPrompt
-windows.addEventListener('beforeinsallprompt', event =>{ 
-    event.preventDefault()
-    installBtn.computedStyleMap.display = 'block'
 
+window.addEventListener('beforeinstallprompt', event => {
+    event.preventDefault()
+    deferredPrompt = event
+    installBtn.style.display = 'block'
 })
 
-installBtn.addEventListener('click', async(event) =>{
+installBtn/addEventListener('click', async (event) => {
     event.preventDefault()
-
     if(deferredPrompt){
         deferredPrompt.prompt()
-        const choiceUser = await deferredPromt.userChoice
-        if(choiceUser ==='accepted'){
-            installBtn.style.display="none"
+        const choiceUser = await deferredPrompt.userChoice
+        if(choiceUser === 'accepted') {
+            installBtn.style.display = "none"
         }
-        deferredprompt=null
+        deferredPrompt = null
     }
 })
-window.addEventListener('appinstalled',() => {
-    installBtn.style.display="none"
+
+window.addEventListener('appinstalled', e => {
+    installBtn.style.display = "none"
 })
